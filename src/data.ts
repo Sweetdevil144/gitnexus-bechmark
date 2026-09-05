@@ -310,19 +310,6 @@ export const DATA = {
     "seed": 42,
     "profile": "all",
     "fbeta": "F1",
-    "precisionRank": 6,
-    "noiseReplay": 0.011,
-    "noiseRegen": 0.054,
-    "n": 5,
-    "f1Mean": 0.5537,
-    "f1Sem": 0.0049,
-    "f1Sd": 0.011
-  },
-  "likeForLike": [
-    { "tool": "cubic-v2",         "n": 5, "tp": 98.4,  "fp": 72.4,  "p": 0.5763, "r": 0.5688, "f1": 0.5725, "sem": 0.0058, "published": 0.5780, "ours": false },
-    { "tool": "qodo-extended-v2", "n": 5, "tp": 94.8,  "fp": 69.8,  "p": 0.5761, "r": 0.5480, "f1": 0.5617, "sem": 0.0061, "published": 0.5714, "ours": false },
-    { "tool": "gitnexus",         "n": 5, "tp": 96.0,  "fp": 77.8,  "p": 0.5524, "r": 0.5549, "f1": 0.5537, "sem": 0.0049, "published": null,   "ours": true  },
-    { "tool": "augment",          "n": 5, "tp": 100.0, "fp": 101.0, "p": 0.4975, "r": 0.5780, "f1": 0.5348, "sem": 0.0021, "published": 0.5430, "ours": false },
-    { "tool": "qodo-v2",          "n": 5, "tp": 97.6,  "fp": 115.4, "p": 0.4584, "r": 0.5642, "f1": 0.5058, "sem": 0.0034, "published": 0.5282, "ours": false }
-  ]
+    "precisionRank": 6
+  }
 } as const;

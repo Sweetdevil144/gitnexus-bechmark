@@ -16,6 +16,43 @@ function Stat({ k, v, sub }: { k: string; v: string; sub: string }) {
   );
 }
 
+function ResultsTable({ data }: { data: Row[] }) {
+  return (
+    <div className="table-wrap">
+      <table className="full">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Reviewer</th>
+            <th className="num">F1</th>
+            <th className="num">Precision</th>
+            <th className="num">Recall</th>
+            <th className="num">TP</th>
+            <th className="num">FP</th>
+            <th className="num">FN</th>
+            <th className="num">Per PR</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((d) => (
+            <tr key={d.tool} className={d.ours ? 'ours' : undefined}>
+              <td className="num">{d.rank}</td>
+              <td>{d.tool}</td>
+              <td className="num">{d.f1.toFixed(3)}</td>
+              <td className="num">{d.p.toFixed(3)}</td>
+              <td className="num">{d.r.toFixed(3)}</td>
+              <td className="num">{d.tp}</td>
+              <td className="num">{d.fp}</td>
+              <td className="num">{d.fn}</td>
+              <td className="num">{d.perPR.toFixed(2)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <div className="page">
@@ -58,37 +95,11 @@ export default function App() {
       </section>
 
       <section>
-        <h2>Prior repeated evaluations</h2>
+        <h2>Leading reviewers</h2>
         <p className="body">
-          In a previous experiment, each tool's fixed review output was evaluated{' '}
-          {M.n} times using {M.judge} at temperature {M.temp} and seed {M.seed}.
-          Results are reported as mean F1 ± standard error of the mean (SEM).
-          The GitNexus result in this table predates the current result.
+          The five highest F1 scores in the current comparison.
         </p>
-        <div className="table-wrap">
-          <table className="full">
-            <thead>
-              <tr>
-                <th>#</th><th>Reviewer</th><th className="num">F1 ± SEM</th><th className="num">Precision</th>
-                <th className="num">Recall</th><th className="num">TP</th><th className="num">FP</th><th className="num">Published F1</th>
-              </tr>
-            </thead>
-            <tbody>
-              {DATA.likeForLike.map((d, i) => (
-                <tr key={d.tool} className={d.ours ? 'ours' : undefined}>
-                  <td className="num">{i + 1}</td>
-                  <td>{d.tool}</td>
-                  <td className="num mono">{d.f1.toFixed(4)} ± {d.sem.toFixed(4)}</td>
-                  <td className="num">{d.p.toFixed(4)}</td>
-                  <td className="num">{d.r.toFixed(4)}</td>
-                  <td className="num">{d.tp.toFixed(1)}</td>
-                  <td className="num">{d.fp.toFixed(1)}</td>
-                  <td className="num">{d.published === null ? '—' : d.published.toFixed(4)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <ResultsTable data={rows.slice(0, 5)} />
       </section>
       <section>
         <h2>Precision and recall</h2>
@@ -140,30 +151,7 @@ export default function App() {
         </div>
       </section>
 
-      <section>
-        <h2>Evaluation variability</h2>
-        <p className="body">
-          Prior experiments measured variation from repeated scoring and from
-          repeated review generation on the same {M.prs} pull requests:
-        </p>
-        <ul className="body">
-          <li>
-            Repeated scoring of fixed review output: F1 variation of{' '}
-            <strong>{M.noiseReplay}</strong>.
-          </li>
-          <li>
-            Repeated review generation: F1 variation of up to{' '}
-            <strong>{M.noiseRegen}</strong>.
-          </li>
-        </ul>
-        <p className="body">
-          The prior GitNexus experiment reports a standard error of {M.f1Sem}
-          {' '}across {M.n} evaluations. This error estimate applies only to that
-          experiment. The current result reports aggregate counts without a
-          standard error. Differences in rank do not establish statistical
-          significance.
-        </p>
-      </section>
+
 
       <section>
         <h2>Benchmark conditions</h2>
@@ -230,7 +218,7 @@ export default function App() {
               review output has not undergone a separate evaluation for this result.
             </p>
             <p className="small">
-              The prior repeated-evaluation results are reported separately.
+              Standard errors are not reported for the current result.
             </p>
           </div>
         </div>
@@ -238,38 +226,7 @@ export default function App() {
 
       <section>
         <h2>Full results</h2>
-        <div className="table-wrap">
-          <table className="full">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Reviewer</th>
-                <th className="num">F1</th>
-                <th className="num">Precision</th>
-                <th className="num">Recall</th>
-                <th className="num">Matched</th>
-                <th className="num">Unmatched</th>
-                <th className="num">Missed</th>
-                <th className="num">Per PR</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((d) => (
-                <tr key={d.tool} className={d.ours ? 'ours' : undefined}>
-                  <td className="num">{d.rank}</td>
-                  <td>{d.tool}</td>
-                  <td className="num">{d.f1.toFixed(3)}</td>
-                  <td className="num">{d.p.toFixed(3)}</td>
-                  <td className="num">{d.r.toFixed(3)}</td>
-                  <td className="num">{d.tp}</td>
-                  <td className="num">{d.fp}</td>
-                  <td className="num">{d.fn}</td>
-                  <td className="num">{d.perPR.toFixed(2)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <ResultsTable data={rows} />
       </section>
 
       <footer>
@@ -277,14 +234,14 @@ export default function App() {
         <ul>
           <li>
             Ranks reflect the reported F1 scores for this corpus and scoring profile.
+            {' '}Differences in rank do not establish statistical significance.
           </li>
           <li>
             Metrics measure agreement with the human reference set. Valid
             findings absent from that set may count as false positives.
           </li>
           <li>
-            Scores are displayed to three decimal places. Prior repeated
-            evaluations retain four decimal places to show their standard errors.
+            Scores are displayed to three decimal places.
           </li>
         </ul>
         <p className="mono small">

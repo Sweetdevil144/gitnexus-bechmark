@@ -17,9 +17,9 @@ Scores are calculated from aggregate counts using existing finding-level judgmen
 - F1 = 2 × 107 / (2 × 107 + 91 + 66)
 - Findings per PR = (107 + 91) / 50 = 3.96
 
-Calculations retain full precision; results are displayed to three decimal places. The complete review output has not undergone a separate evaluation for this result. Prior repeated evaluations are reported separately with their original scores and standard errors. Differences in rank do not establish statistical significance.
+Calculations retain full precision; results are displayed to three decimal places. The complete review output has not undergone a separate evaluation for this result. Standard errors are not reported for the current result. Differences in rank do not establish statistical significance.
 
-Benchmark data is in `src/data.ts`; the page is in `src/App.tsx`.
+Benchmark data is in `src/data.ts`; all result tables, charts, and headline metrics use this dataset. The page is in `src/App.tsx`.
 
 ## Development
 
