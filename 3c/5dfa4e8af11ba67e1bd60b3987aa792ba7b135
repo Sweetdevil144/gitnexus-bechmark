@@ -1,0 +1,23 @@
+src/data.ts
+  s_d7c38207780782::t_69581cd46bf8af 313-314
+src/App.tsx
+  s_d7c38207780782::t_69581cd46bf8af 19-55,98,100,102,154,221,229,237,244
+README.md
+  s_d7c38207780782::t_69581cd46bf8af 20,22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "3c5dfa4e8af11ba67e1bd60b3987aa792ba7b135",
+  "prompts": {},
+  "sessions": {
+    "s_d7c38207780782": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a072de-21ac-7fd0-8658-f646297155f2",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Abhinav Pandey <abhinavpandey1230@gmail.com>"
+    }
+  }
+}
