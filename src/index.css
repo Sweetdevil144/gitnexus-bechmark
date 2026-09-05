@@ -1,0 +1,109 @@
+/* ---------------------------------------------------------------------------
+   Tokens. Light is the base; dark redefines only the token values, so every
+   component is written against roles and never against a raw hex.
+   The neutral carries a slight blue bias toward the accent — chosen, not
+   inherited from a default grey.
+--------------------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  --surface-0: #f7f7f6;
+  --surface-1: #fcfcfb;
+  --surface-2: #f0f1f3;
+  --border: #e2e3e6;
+  --border-strong: #cdcfd4;
+
+  --ink-1: #101114;
+  --ink-2: #4b4d55;
+  --ink-3: #74767f;
+
+  --accent: #2a78d6;
+  --accent-soft: #dbe8f9;
+  --context: #8e9099;
+  --context-soft: #dfe0e4;
+
+  --shadow: 0 1px 2px rgb(16 17 20 / 0.04), 0 8px 24px -12px rgb(16 17 20 / 0.10);
+
+  --maxw: 1080px;
+  --r: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    --surface-0: #101114;
+    --surface-1: #17181c;
+    --surface-2: #1e2025;
+    --border: #292b31;
+    --border-strong: #3a3d45;
+
+    --ink-1: #ffffff;
+    --ink-2: #b8bac2;
+    --ink-3: #85878f;
+
+    --accent: #3987e5;
+    --accent-soft: #16304f;
+    --context: #7a7c85;
+    --context-soft: #2a2c32;
+
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 30px -14px rgb(0 0 0 / 0.6);
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --surface-0: #101114;
+  --surface-1: #17181c;
+  --surface-2: #1e2025;
+  --border: #292b31;
+  --border-strong: #3a3d45;
+  --ink-1: #ffffff;
+  --ink-2: #b8bac2;
+  --ink-3: #85878f;
+  --accent: #3987e5;
+  --accent-soft: #16304f;
+  --context: #7a7c85;
+  --context-soft: #2a2c32;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 10px 30px -14px rgb(0 0 0 / 0.6);
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--surface-0);
+  color: var(--ink-1);
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+}
+
+h1, h2, h3 { text-wrap: balance; margin: 0; line-height: 1.15; }
+
+code, .mono {
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+    'Liberation Mono', monospace;
+  font-size: 0.875em;
+}
+
+a { color: var(--accent); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
