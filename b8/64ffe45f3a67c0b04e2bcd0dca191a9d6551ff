@@ -1,0 +1,69 @@
+.oxlintrc.json
+  s_b3fb8faa15e34b::t_3be01128443cb7 1-8
+README.md
+  s_d7c38207780782::t_79211c5c5105ef 1-43
+index.html
+  s_14022b90de44a4::t_25aa729da6d8ee 1-15
+package-lock.json
+  s_b3fb8faa15e34b::t_1826ce7481f6b1 1-1327
+package.json
+  s_b3fb8faa15e34b::t_c76a522cb74752 1-25
+public/favicon.svg
+  s_b3fb8faa15e34b::t_88da00421a5b28 1
+public/icons.svg
+  s_b3fb8faa15e34b::t_bee49426c56d48 1-24
+src/App.tsx
+  s_14022b90de44a4::t_94f27a198a5e29 1-321
+src/assets/react.svg
+  s_b3fb8faa15e34b::t_5ced7f892ac377 1
+src/assets/vite.svg
+  s_b3fb8faa15e34b::t_dc47ee989d58fb 1
+src/charts.tsx
+  s_14022b90de44a4::t_8f3eded8527bc3 1-303
+src/data.ts
+  s_14022b90de44a4::t_6eaf481fc62b0f 1-330
+src/main.tsx
+  s_b3fb8faa15e34b::t_7c9f0e76e4366f 1-10
+src/styles.css
+  s_b3fb8faa15e34b::t_6de91fe686f911 1-278
+tsconfig.app.json
+  s_b3fb8faa15e34b::t_59829fb7ce956a 1-26
+tsconfig.json
+  s_b3fb8faa15e34b::t_4787005ae84b24 1-7
+tsconfig.node.json
+  s_b3fb8faa15e34b::t_17e8aa220041dc 1-23
+vite.config.ts
+  s_b3fb8faa15e34b::t_ea0215249dcd7b 1-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "b864ffe45f3a67c0b04e2bcd0dca191a9d6551ff",
+  "prompts": {},
+  "sessions": {
+    "s_14022b90de44a4": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a06eed-d935-7c72-848a-1e9d250afb4c",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Abhinav Pandey <abhinavpandey1230@gmail.com>"
+    },
+    "s_b3fb8faa15e34b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a0652d86-8724-480b-abcf-b7d79c011b99",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Abhinav Pandey <abhinavpandey1230@gmail.com>"
+    },
+    "s_d7c38207780782": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a072de-21ac-7fd0-8658-f646297155f2",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Abhinav Pandey <abhinavpandey1230@gmail.com>"
+    }
+  }
+}
