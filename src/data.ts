@@ -14,7 +14,6 @@ export const DATA = {
     },
     {
       "tool": "gitnexus",
-      // v35 judged candidates after restoring drops and applying the drop rule.
       // Compute the metrics from TP=107, FP=91, FN=66; round only for display.
       "f1": (2 * 107) / (2 * 107 + 91 + 66),
       "p": 107 / (107 + 91),
@@ -309,7 +308,6 @@ export const DATA = {
     "judge": "gpt-5.2",
     "temp": 0,
     "seed": 42,
-    "reviewer": "two independent passes, one claim per comment",
     "profile": "all",
     "fbeta": "F1",
     "precisionRank": 6,

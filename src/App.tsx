@@ -21,9 +21,6 @@ export default function App() {
     <div className="page">
       <header className="hero">
         <div className="brand">
-          {/* The white chip is the brand mark's own light ground — it is
-              theme-invariant on the product site, and matching that here keeps
-              one logo treatment across both surfaces. */}
           <span className="brand-mark">
             <img src="/images/akon-logo.webp" alt="" width={32} height={32} />
           </span>
@@ -31,55 +28,49 @@ export default function App() {
         </div>
         <h1>GitNexus PR Review Benchmarks</h1>
         <p className="lede">
-          Our pull-request review bot measured against {M.tools} other tools on the
-          Martian Code Review Benchmark — same {M.prs} pull requests, same {M.goldens}
-          human-written ground-truth findings, same judge. Our official v35 result is{' '}
-          #{us.rank} by F1 in this comparison: {us.f1.toFixed(3)} F1,{' '}
-          {us.p.toFixed(3)} precision, and {us.r.toFixed(3)} recall.
-          These scores are calculated from the judged v35 candidates after restoring
-          noise-budget and collapse drops and applying the drop rule
-          (verifier score ≤ 3 and the low-precision title strata).
+          GitNexus is compared with {M.tools} code review tools on the Martian
+          Code Review Benchmark, comprising {M.prs} pull requests and{' '}
+          {M.goldens} human reference findings. GitNexus ranks second by reported
+          F1, with a score of {us.f1.toFixed(3)}, precision of {us.p.toFixed(3)},
+          and recall of {us.r.toFixed(3)}. Scores are calculated from aggregate
+          counts of previously judged findings.
         </p>
         <p className="meta mono">
-          reviewer {M.reviewer} · judge {M.judge} · temperature {M.temp} · seed{' '}
-          {M.seed}
+          Judge: {M.judge}. Temperature: {M.temp}. Seed: {M.seed}.
         </p>
       </header>
 
       <section className="stats" aria-label="Headline results">
-        <Stat k="Rank" v={`${us.rank} of ${M.tools + 1}`} sub={`${M.profile} profile, ${M.fbeta}`} />
-        <Stat k="F1" v={us.f1.toFixed(3)} sub="v35 judged candidates · drop rule applied" />
-        <Stat k="Precision" v={us.p.toFixed(3)} sub={`${M.precisionRank}th in the field`} />
+        <Stat k="Rank" v={`${us.rank} of ${M.tools + 1}`} sub={`Ranked by ${M.fbeta}`} />
+        <Stat k="F1" v={us.f1.toFixed(3)} sub="Harmonic mean of precision and recall" />
+        <Stat k="Precision" v={us.p.toFixed(3)} sub={`${us.tp} of ${us.tp + us.fp} findings matched`} />
         <Stat k="Recall" v={us.r.toFixed(3)} sub={`${us.tp} of ${us.tp + us.fn} findings matched`} />
       </section>
 
       <section>
-        <h2>Where we place</h2>
+        <h2>F1 comparison</h2>
         <p className="body">
-          F1 balances finding real problems against not inventing them. All{' '}
-          {M.tools + 1} reviewers are shown. The benchmark scores
-          three category profiles and any F-beta, and a tool's place moves between
-          them — so the profile and beta are named here rather than left implicit.
+          The {M.tools + 1} reviewers are ranked by F1 under the benchmark's{' '}
+          <code>{M.profile}</code> scoring profile. Rankings apply to the reported
+          scores for this corpus and profile.
         </p>
         <BarChart rows={rows} metric="f1" label={`F1 — ${M.tools + 1} reviewers`} />
       </section>
 
       <section>
-        <h2>Previous benchmark: five tools judged on one instrument</h2>
+        <h2>Prior repeated evaluations</h2>
         <p className="body">
-          The published leaderboard scores each tool from a single judging. The rows below
-          are every tool's posted comments judged {M.n} times under the same chain
-          (judge {M.judge}, temperature {M.temp}, seed {M.seed}, with the benchmark's
-          dedup step), reported as mean ± standard error. Every re-judged tool sits below
-          its published single judging. This earlier experiment is retained for
-          comparison; its GitNexus row predates the v35 headline result.
+          In a previous experiment, each tool's fixed review output was evaluated{' '}
+          {M.n} times using {M.judge} at temperature {M.temp} and seed {M.seed}.
+          Results are reported as mean F1 ± standard error of the mean (SEM).
+          The GitNexus result in this table predates the current result.
         </p>
         <div className="table-wrap">
           <table className="full">
             <thead>
               <tr>
-                <th>#</th><th>Reviewer</th><th className="num">F1 ± sem</th><th className="num">Precision</th>
-                <th className="num">Recall</th><th className="num">TP</th><th className="num">FP</th><th className="num">published</th>
+                <th>#</th><th>Reviewer</th><th className="num">F1 ± SEM</th><th className="num">Precision</th>
+                <th className="num">Recall</th><th className="num">TP</th><th className="num">FP</th><th className="num">Published F1</th>
               </tr>
             </thead>
             <tbody>
@@ -100,11 +91,10 @@ export default function App() {
         </div>
       </section>
       <section>
-        <h2>Precision and recall separately</h2>
+        <h2>Precision and recall</h2>
         <p className="body">
-          F1 hides which side of the trade a tool sits on. Precision is the share
-          of comments that matched something a human reviewer actually wrote.
-          Recall is the share of the human comments that were found.
+          Precision is the proportion of evaluated findings that match the human
+          reference set. Recall is the proportion of reference findings matched.
         </p>
         <div className="two-up">
           <BarChart rows={rows} metric="p" label="Precision" compact />
@@ -113,11 +103,10 @@ export default function App() {
       </section>
 
       <section>
-        <h2>The trade-off, drawn</h2>
+        <h2>Precision–recall distribution</h2>
         <p className="body">
-          No reviewer on this corpus is best at both. Tools toward the top are
-          right more often; tools toward the right find more. GitNexus matches{' '}
-          {us.tp} of {us.tp + us.fn} human findings, with{' '}
+          The plot shows precision against recall for each reviewer. GitNexus
+          matches {us.tp} of {us.tp + us.fn} reference findings, with{' '}
           {(us.p * 100).toFixed(1)}% precision.
         </p>
         <Scatter
@@ -131,12 +120,12 @@ export default function App() {
       </section>
 
       <section>
-        <h2>How much noise it costs to get there</h2>
+        <h2>Finding volume</h2>
         <p className="body">
-          Review comments are read by people, so volume is a cost, not a feature.
-          The v35 candidate set contains {us.tp + us.fp} findings, averaging{' '}
-          {us.perPR.toFixed(2)} per pull request, with {us.fp} false positives
-          across all {M.prs} pull requests.
+          The current GitNexus result includes {us.tp + us.fp} findings across{' '}
+          {M.prs} pull requests, averaging {us.perPR.toFixed(2)} findings per pull
+          request. Of these, {us.tp} match the reference set and {us.fp} are
+          unmatched.
         </p>
         <div className="two-up">
           <BarChart rows={rows} metric="perPR" label="Findings per PR" compact />
@@ -152,53 +141,43 @@ export default function App() {
       </section>
 
       <section>
-        <h2>What a number on this corpus is worth</h2>
+        <h2>Evaluation variability</h2>
         <p className="body">
-          Fifty pull requests is a small sample and the judge is a language model,
-          so the same work measured twice does not give the same answer. Both
-          floors were measured rather than assumed, and they differ by more than
-          four times:
+          Prior experiments measured variation from repeated scoring and from
+          repeated review generation on the same {M.prs} pull requests:
         </p>
         <ul className="body">
           <li>
-            Re-scoring one <em>fixed</em> set of reviews moves F1 by about{' '}
-            <strong>{M.noiseReplay}</strong>. That is the judge disagreeing with
-            itself about how to split the same text into findings.
+            Repeated scoring of fixed review output: F1 variation of{' '}
+            <strong>{M.noiseReplay}</strong>.
           </li>
           <li>
-            Re-<em>running</em> the reviewer on the same pull requests moves F1 by
-            about <strong>{M.noiseRegen}</strong>, because the reviewer resamples
-            which defects it happens to notice.
+            Repeated review generation: F1 variation of up to{' '}
+            <strong>{M.noiseRegen}</strong>.
           </li>
         </ul>
         <p className="body">
-          The consequence is worth stating plainly: on this corpus a single run is
-          not evidence for a change worth less than about 0.05, and detecting a
-          +0.02 improvement by re-running would take roughly a hundred runs per
-          side. The earlier GitNexus experiment above reports the mean of{' '}
-          {M.n} judgings, with standard error {M.f1Sem}. The v35 headline is
-          calculated from {us.tp} TP, {us.fp} FP, and {us.fn} FN in the judged
-          candidate set; it does not reuse that earlier experiment's standard
-          error. Rank is the ordering of the displayed F1 scores, not a claim of
-          statistical separation or a new judging of the composed artefact.
+          The prior GitNexus experiment reports a standard error of {M.f1Sem}
+          {' '}across {M.n} evaluations. This error estimate applies only to that
+          experiment. The current result reports aggregate counts without a
+          standard error. Differences in rank do not establish statistical
+          significance.
         </p>
       </section>
 
       <section>
         <h2>Benchmark conditions</h2>
         <p className="body">
-          Everything below is fixed across every tool on this page. It is
-          documented so the result can be checked rather than taken on trust.
+          Dataset, evaluation settings, and metric definitions are listed below.
         </p>
 
         <div className="cards">
           <div className="card">
-            <h3>The corpus</h3>
+            <h3>Dataset</h3>
             <p>
-              {M.prs} real pull requests across five open-source projects, with
-              the comments human reviewers actually left on them as ground truth
-              — {M.goldens} comments in total, {M.scored} of them in the scoring
-              profile.
+              {M.prs} pull requests from five open-source projects, with{' '}
+              {M.goldens} human reference findings. The selected scoring profile
+              includes {M.scored} reference findings.
             </p>
             <table className="mini">
               <tbody>
@@ -213,47 +192,46 @@ export default function App() {
           </div>
 
           <div className="card">
-            <h3>The judge</h3>
+            <h3>Evaluation settings</h3>
             <p>
-              An LLM is shown one human comment and one candidate finding and
-              asked a single question: do these describe the same problem?
-              Wording may differ.
+              The benchmark uses a language model to assess whether a review
+              finding matches a human reference finding.
             </p>
             <table className="mini">
               <tbody>
-                <tr><td>model</td><td className="num mono">{M.judge}</td></tr>
-                <tr><td>temperature</td><td className="num mono">{M.temp}</td></tr>
-                <tr><td>seed</td><td className="num mono">{M.seed}</td></tr>
+                <tr><td>Model</td><td className="num mono">{M.judge}</td></tr>
+                <tr><td>Temperature</td><td className="num mono">{M.temp}</td></tr>
+                <tr><td>Seed</td><td className="num mono">{M.seed}</td></tr>
               </tbody>
             </table>
             <p className="small">
-              The judge is held identical for every tool. Reviewer and judge are
-              different models, so nothing grades its own output.
+              Evaluation settings are shared across tools.
             </p>
           </div>
 
           <div className="card">
-            <h3>What the score means</h3>
+            <h3>Metric definitions</h3>
             <p>
-              The judge measures <b>agreement with a specific human reviewer</b>,
-              not correctness. A finding that is true, but that the reviewer did
-              not happen to write down, counts against precision.
+              TP denotes matched findings, FP denotes unmatched findings, and
+              FN denotes missed reference findings.
+            </p>
+            <ul>
+              <li>Precision = TP / (TP + FP)</li>
+              <li>Recall = TP / (TP + FN)</li>
+              <li>F1 = 2TP / (2TP + FP + FN)</li>
+            </ul>
+          </div>
+
+          <div className="card">
+            <h3>Evaluation scope</h3>
+            <p>
+              Current scores are calculated from {us.tp} TP, {us.fp} FP, and{' '}
+              {us.fn} FN using existing finding-level judgments. The complete
+              review output has not undergone a separate evaluation for this result.
             </p>
             <p className="small">
-              That is the same for every tool here, but it changes how a
-              precision number should be read — on this corpus it is a measure of
-              agreement, not of truth.
+              The prior repeated-evaluation results are reported separately.
             </p>
-          </div>
-
-          <div className="card">
-            <h3>How it was run</h3>
-            <ul>
-              <li>Two independent review passes; their findings are unioned and de-duplicated.</li>
-              <li>Each posted comment carries one claim: a title and one sentence of rationale.</li>
-              <li>Each PR reviewed against a code graph built at that PR's own base commit.</li>
-              <li>The same configuration for every PR — no per-repository or per-PR tuning.</li>
-            </ul>
           </div>
         </div>
       </section>
@@ -295,25 +273,23 @@ export default function App() {
       </section>
 
       <footer>
-        <h3>Reading this honestly</h3>
+        <h3>Interpretation</h3>
         <ul>
           <li>
-            <b>Rank is by displayed F1.</b> Repeating one unchanged configuration
-            on this corpus moved F1 by up to 0.054, so ranks 6 through 11 — which
-            span 0.024 — are not separable by a single run. The v35 headline
-            uses the judged candidate counts and drop rule described above.
+            Ranks reflect the reported F1 scores for this corpus and scoring profile.
           </li>
           <li>
-            <b>Precision here means agreement</b> with one reviewer's written
-            comments, not correctness.
+            Metrics measure agreement with the human reference set. Valid
+            findings absent from that set may count as false positives.
           </li>
           <li>
-            <b>The corpus is public</b> and the judge configuration is stated
-            above, so any number on this page can be re-derived.
+            Scores are displayed to three decimal places. Prior repeated
+            evaluations retain four decimal places to show their standard errors.
           </li>
         </ul>
         <p className="mono small">
-          {M.prs} pull requests · {M.goldens} human comments · {M.tools + 1} reviewers · judge {M.judge} @ temp {M.temp}, seed {M.seed} · {M.profile} profile
+          {M.prs} pull requests. {M.goldens} reference findings. {M.tools + 1} reviewers.
+          {' '}Scoring profile: {M.profile}.
         </p>
       </footer>
     </div>
