@@ -13,30 +13,30 @@ export const DATA = {
       "rank": 1
     },
     {
-      "tool": "gitnexus",
-      // Compute the metrics from TP=107, FP=91, FN=66; round only for display.
-      "f1": (2 * 107) / (2 * 107 + 91 + 66),
-      "p": 107 / (107 + 91),
-      "r": 107 / (107 + 66),
-      "tp": 107,
-      "fp": 91,
-      "fn": 66,
-      "perPR": (107 + 91) / 50,
-      "ours": true,
-      "rank": 2
-    },
-    {
-      "tool": "qodo-extended-v2",
-      "f1": 0.5714,
-      "p": 0.589,
-      "r": 0.5549,
-      "tp": 96,
-      "fp": 67,
-      "fn": 77,
-      "perPR": 3.26,
-      "ours": false,
-      "rank": 3
-    },
+  "tool": "qodo-extended-v2",
+  "f1": 0.5714,
+  "p": 0.589,
+  "r": 0.5549,
+  "tp": 96,
+  "fp": 67,
+  "fn": 77,
+  "perPR": 3.26,
+  "ours": false,
+  "rank": 2
+},
+{
+  "tool": "gitnexus",
+  // Means from five scoring replays of the B1∘S3 composed artifact.
+  "f1": 0.5537,
+  "p": 0.5524,
+  "r": 0.5549,
+  "tp": 96.0,
+  "fp": 77.8,
+  "fn": 77.0,
+  "perPR": 3.476,
+  "ours": true,
+  "rank": 3
+},
     {
       "tool": "augment",
       "f1": 0.543,
